@@ -11,10 +11,8 @@ np.set_printoptions(suppress=True) # Suppress scientific notation when printing 
 import h5py
 import scipy.io
 from datetime import datetime
-import load_data_pairs as ld # my own scripts for loading data
 
 import build_model
-
 import util
 
 # Keras imports
@@ -41,11 +39,11 @@ model = build_model.build_model_v1()
 # Print a summary of the model
 model.summary()
 
-X1, X2, dist, y, indices = ld.load_hdf5_hg19(data_path)
+X1, X2, dist, y, indices = util.load_hdf5_hg19(data_path)
 y = np.log(y)
 
 train_data_path = 'data/chr{0}_{1}k_kr_pairs_{2}_{3}.h5'.format(chromosome, res / 1000, n_samples, mode_str)
-_, _, _, _, train_indices = ld.load_hdf5_hg19(train_data_path)
+_, _, _, _, train_indices = util.load_hdf5_hg19(train_data_path)
 train_indices = [tuple(arr) for arr in train_indices]
 print 'train_indices', len(train_indices), train_indices[:3]
 

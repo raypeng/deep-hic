@@ -1,6 +1,5 @@
 import numpy as np
 import sys
-import h5py
 
 
 def load_hdf5_hg19(path):

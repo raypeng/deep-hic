@@ -4,10 +4,8 @@ np.set_printoptions(suppress=True) # Suppress scientific notation when printing 
 import h5py
 import scipy.io
 from datetime import datetime
-import load_data_pairs as ld # my own scripts for loading data
 
 import build_model
-
 import util
 
 # Keras imports
@@ -40,7 +38,7 @@ data_path = 'data/chr{0}_{1}k_kr_pairs_{2}_{3}.h5'.format(chromosome, resolution
 print 'Loading data from ' + data_path
 
 # TODO: Resample 10 times and do cross-validation
-X1_train, X2_train, dist_train, y_train, indices = ld.load_hdf5_hg19(data_path)
+X1_train, X2_train, dist_train, y_train, indices = util.load_hdf5_hg19(data_path)
 y_train = np.log(y_train)
 X1_train, X2_train, dist_train, y_train, X1_val, X2_val, dist_val, y_val = util.split_train_and_val_data_hg19(X1_train, X2_train, dist_train, y_train, training_frac)
 

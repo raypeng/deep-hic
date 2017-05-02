@@ -10,7 +10,8 @@ import cPickle
 import numpy as np
 from statsmodels.nonparametric.kernel_regression import KernelReg
 from sklearn.linear_model import LinearRegression as LR
-import load_data_pairs as ld
+
+import util
 
 
 def read_val(path):
@@ -34,7 +35,7 @@ print 'reading h5 done'
 resolution = 5000
 ctcf_file = 'data/fimo-output/chr21-{0}-ctcf/psum.pkl'.format(resolution)
 prefix_sum = cPickle.load(open(ctcf_file, 'rb'))
-ctcf, _ = ld.load_ctcf_counts(prefix_sum, indices, 1)
+ctcf, _ = util.load_ctcf_counts(prefix_sum, indices, 1)
 ctcf = ctcf.reshape(-1, 1)
 print 'ctcf shape', ctcf.shape
 print 'reading ctcf done'
