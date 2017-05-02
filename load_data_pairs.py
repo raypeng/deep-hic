@@ -10,6 +10,8 @@ def load_hdf5_hg19(path):
         dist = np.array(hf.get('dist'))
         y = np.array(hf.get('val'))
         indices = list(hf.get('indices'))
+        print 'histogram of dist'
+        print np.histogram(dist)
         print 'histogram of y'
         print np.histogram(y)
         print 'histogram of log(y)'

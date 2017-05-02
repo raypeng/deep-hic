@@ -1,4 +1,5 @@
 import numpy as np
+import re
 np.set_printoptions(suppress=True) # Suppress scientific notation when printing small
 import h5py
 import scipy.io
@@ -25,20 +26,17 @@ lr = 1e-5
 # opt = RMSprop(lr=lr)
 opt = Adam(lr=lr)
 
-chromosome = 22
+chromosome = 21
 # n_samples = 321812
-n_samples = 100000
+n_samples = 10000
 resolution = 5000
-use_bias = True
-if use_bias:
-    mode_str = 'biased_'
-else:
-    mode_str = ''
+mode_str = 'uniform_500000'
+
 checkpoint_path = 'weights/chr{0}_kr_{1}{2}k_{3}_{4}_logy.hdf5'.format(chromosome, mode_str, resolution / 1000, n_samples, t)
-print n_samples, resolution, use_bias, checkpoint_path
+print n_samples, resolution, checkpoint_path
 
 # # Load data and split into training and validation sets
-data_path = 'data/chr{0}_{1}k_kr_pairs_{2}_{3}500000_max.h5'.format(chromosome, resolution / 1000, n_samples, mode_str)
+data_path = 'data/chr{0}_{1}k_kr_pairs_{2}_{3}.h5'.format(chromosome, resolution / 1000, n_samples, mode_str)
 print 'Loading data from ' + data_path
 
 # TODO: Resample 10 times and do cross-validation
@@ -50,7 +48,7 @@ X1_length = X1_train.shape[1]
 X2_length = X2_train.shape[1]
 
 print 'Building model...'
-model = build_model.build_model()
+model = build_model.build_model_v1()
 
 print 'Compiling model...'
 model.compile(loss = 'mean_squared_error',

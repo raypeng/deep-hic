@@ -29,14 +29,10 @@ batch_size = 50
 n_samples = 100000
 # n_samples = 321812
 res = 5000
-use_biased = True
-if use_biased:
-    mode_str = 'biased_'
-else:
-    mode_str = ''
+mode_str = 'linear'
 
 # # Load data and split into training and validation sets
-data_path = 'data/chr{0}_{1}k_kr_mat_{2}_{3}_500000_max.h5'.format(chromosome, res / 1000, start_pos, end_pos)
+data_path = 'data/chr{0}_{1}k_kr_mat_{2}_{3}x.h5'.format(chromosome, res / 1000, start_pos, end_pos)
 print 'Loading data from ' + data_path
 
 print 'Building model...'
@@ -48,7 +44,7 @@ model.summary()
 X1, X2, dist, y, indices = ld.load_hdf5_hg19(data_path)
 y = np.log(y)
 
-train_data_path = 'data/chr{0}_{1}k_kr_pairs_{2}_{3}500000_max.h5'.format(chromosome, res / 1000, n_samples, mode_str)
+train_data_path = 'data/chr{0}_{1}k_kr_pairs_{2}_{3}.h5'.format(chromosome, res / 1000, n_samples, mode_str)
 _, _, _, _, train_indices = ld.load_hdf5_hg19(train_data_path)
 train_indices = [tuple(arr) for arr in train_indices]
 print 'train_indices', len(train_indices), train_indices[:3]

@@ -34,15 +34,11 @@ chromosome = 22
 # n_samples = 321812
 n_samples = 100000
 resolution = 5000
-use_biased = True
-if use_biased:
-    mode_str = 'biased_'
-else:
-    mode_str = ''
-print chromosome, n_samples, resolution, use_biased
+mode_str = 'linear'
+print chromosome, n_samples, resolution, mode_str
 
 # Load data and split into training and validation sets
-data_path = 'data/chr{0}_{1}k_kr_pairs_{2}_{3}500000_max.h5'.format(chromosome, resolution / 1000, n_samples, mode_str)
+data_path = 'data/chr{0}_{1}k_kr_pairs_{2}_{3}.h5'.format(chromosome, resolution / 1000, n_samples, mode_str)
 print 'Loading data from ' + data_path
 
 X1_train, X2_train, dist_train, y_train, _ = ld.load_hdf5_hg19(data_path)
