@@ -29,11 +29,11 @@ lr = 1e-5
 # opt = RMSprop(lr=lr)
 opt = Adam(lr=lr)
 
-chromosome = 22
+chromosome = 21
 # n_samples = 321812
-n_samples = 100000
+n_samples = 10000
 resolution = 5000
-mode_str = 'linear'
+mode_str = 'uniform_500000'
 print chromosome, n_samples, resolution, mode_str
 
 # Load data and split into training and validation sets
@@ -63,7 +63,7 @@ y_pred = model.predict([X1_val, X2_val, dist_val], batch_size=batch_size)
 print 'median of y_true', np.median(y_val.ravel())
 print 'median of y_pred', np.median(y_pred.ravel())
 
-print 'r2 score', r2_score(y_val, y_pred + delta)
+print 'r2 score', r2_score(y_val, y_pred)
 print 'mse     ', mean_squared_error(y_val, y_pred)
 
 np.save('chr{0}_5k_{1}y_pred'.format(chromosome, mode_str), y_pred)

@@ -126,7 +126,7 @@ if __name__ == '__main__':
     resolution = int(sys.argv[3])
     mode_str = sys.argv[4]
     assert resolution in [1000, 5000]
-    assert mode_str in ['linear_500000', 'linear', 'exponential_500000', 'exponential', 'uniform_500000']
+    assert mode_str in ['linear_500000', 'linear', 'exponential_500000', 'exponential', 'uniform_500000', 'uniform']
 
     res_str = '{0}k'.format(resolution / 1000)
     length = 5000

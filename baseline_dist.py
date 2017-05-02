@@ -10,8 +10,6 @@ import cPickle
 import numpy as np
 from statsmodels.nonparametric.kernel_regression import KernelReg
 from sklearn.linear_model import LinearRegression as LR
-import load_data_pairs as ld
-
 
 def read_val(path):
     with h5py.File(path, 'r') as f:
@@ -31,6 +29,8 @@ dist, y, indices = dist[-n:].reshape(-1, 1), y[-n:].reshape(-1, 1), indices[-n:]
 print 'dist.shape, y.shape', dist.shape, y.shape
 print 'reading h5 done'
 
+dist = np.random.rand(*y.shape)
+
 print '\n=====\ny = f(dist) with LogisticRegression'
 lr = LR()
 lr.fit(dist, y)
@@ -39,5 +39,6 @@ print 'intercept', lr.intercept_
 print 'LR_r2', lr.score(dist, y)
 
 print '\n=====\ny = f(dist) with KernelRegression'
-kr = KernelReg(dist, y, var_type='u')
+n_max = 1000000
+kr = KernelReg(dist[:n_max], y[:n_max], var_type='u')
 print 'KR_r2', kr.r_squared()

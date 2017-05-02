@@ -11,8 +11,6 @@ import numpy as np
 from statsmodels.nonparametric.kernel_regression import KernelReg
 from sklearn.linear_model import LinearRegression as LR
 
-import util
-
 
 def read_val(path):
     with h5py.File(path, 'r') as f:

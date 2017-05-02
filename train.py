@@ -25,12 +25,12 @@ lr = 1e-5
 opt = Adam(lr=lr)
 
 chromosome = 21
-# n_samples = 321812
-n_samples = 10000
+n_samples = 300000
+# n_samples = 100000
 resolution = 5000
 mode_str = 'uniform_500000'
 
-checkpoint_path = 'weights/chr{0}_kr_{1}{2}k_{3}_{4}_logy.hdf5'.format(chromosome, mode_str, resolution / 1000, n_samples, t)
+checkpoint_path = 'weights/chr{0}_kr_{1}k_{2}_{3}_{4}_logy.hdf5'.format(chromosome, resolution / 1000, mode_str, n_samples, t)
 print n_samples, resolution, checkpoint_path
 
 # # Load data and split into training and validation sets
@@ -90,7 +90,7 @@ checkpointer = ModelCheckpoint(filepath=checkpoint_path,
                                save_best_only=True)
 
 # Reduce learning rate by 1/5 if val_loss is stagnant for 5 epochs
-reduce_lr = ReduceLROnPlateau(monitor='loss',
+reduce_lr = ReduceLROnPlateau(monitor='val_loss',
                               factor=0.2,
                               patience=5)
 
