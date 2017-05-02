@@ -25,10 +25,10 @@ lr = 1e-5
 opt = Adam(lr=lr)
 
 chromosome = 21
-n_samples = 300000
+n_samples = 150000
 # n_samples = 100000
 resolution = 5000
-mode_str = 'uniform_500000'
+mode_str = 'exponential'
 
 checkpoint_path = 'weights/chr{0}_kr_{1}k_{2}_{3}_{4}_logy.hdf5'.format(chromosome, resolution / 1000, mode_str, n_samples, t)
 print n_samples, resolution, checkpoint_path

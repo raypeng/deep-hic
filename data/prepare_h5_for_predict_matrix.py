@@ -145,7 +145,7 @@ if __name__ == '__main__':
     with h5py.File(cache_file, 'w') as hf:
         hf.create_dataset('b1', data=b1.astype(np.uint8))
         hf.create_dataset('b2', data=b2.astype(np.uint8))
-        hf.create_dataset('dist', data=dist.astype(np.uint8))
+        hf.create_dataset('dist', data=dist.astype(np.uint32))
         hf.create_dataset('val', data=val)
         hf.create_dataset('indices', data=indices)
     print 'saved to', cache_file

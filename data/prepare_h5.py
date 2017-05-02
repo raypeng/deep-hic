@@ -76,6 +76,7 @@ def seq_to_onehot(seq):
     return a
 
 def generate_pairs_biased(seq, interactions, seq_length, band, num_pairs, resolution, bias_func):
+    print 'generate_pairs band =', band
     total_length = len(seq)
     b1 = np.zeros((num_pairs, seq_length, 4))
     b2 = np.zeros((num_pairs, seq_length, 4))
@@ -180,7 +181,7 @@ if __name__ == '__main__':
     with h5py.File(cache_file, 'w') as hf:
         hf.create_dataset('b1', data=b1.astype(np.uint8))
         hf.create_dataset('b2', data=b2.astype(np.uint8))
-        hf.create_dataset('dist', data=dist.astype(np.uint8))
+        hf.create_dataset('dist', data=dist.astype(np.uint32))
         hf.create_dataset('val', data=val)
         hf.create_dataset('indices', data=indices)
     print 'h5 written to', cache_file
