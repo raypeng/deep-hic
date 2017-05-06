@@ -10,6 +10,8 @@ import cPickle
 import numpy as np
 from statsmodels.nonparametric.kernel_regression import KernelReg
 from sklearn.linear_model import LinearRegression as LR
+from sklearn.kernel_ridge import KernelRidge
+from sklearn.model_selection import GridSearchCV
 
 def read_val(path):
     with h5py.File(path, 'r') as f:
@@ -29,16 +31,25 @@ dist, y, indices = dist[-n:].reshape(-1, 1), y[-n:].reshape(-1, 1), indices[-n:]
 print 'dist.shape, y.shape', dist.shape, y.shape
 print 'reading h5 done'
 
-dist = np.random.rand(*y.shape)
+# dist = np.random.rand(*y.shape)
 
-print '\n=====\ny = f(dist) with LogisticRegression'
+print '\n=====\ny = f(dist) with LinearRegression'
 lr = LR()
 lr.fit(dist, y)
 print 'coef', lr.coef_
 print 'intercept', lr.intercept_
 print 'LR_r2', lr.score(dist, y)
 
+# s = y.size / 1000
+s = 10
+
+print '\n=====\ny = f(dist) with RBF Ridge'
+kr = GridSearchCV(KernelRidge(kernel='rbf'), cv=5,
+                  param_grid={'alpha': [1, 0.1, 0.01, 0.001],
+                              'gamma': np.logspace(-2, 2, 5)})
+kr.fit(dist[::s], y[::s])
+print 'RBF_r2', kr.score(dist, y)
+
 print '\n=====\ny = f(dist) with KernelRegression'
-n_max = 1000000
-kr = KernelReg(dist[:n_max], y[:n_max], var_type='u')
+kr = KernelReg(dist[::s], y[::s], var_type='u')
 print 'KR_r2', kr.r_squared()

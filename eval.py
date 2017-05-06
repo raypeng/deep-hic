@@ -31,9 +31,9 @@ opt = Adam(lr=lr)
 
 chromosome = 21
 # n_samples = 321812
-n_samples = 10000
+n_samples = 300000
 resolution = 5000
-mode_str = 'uniform_500000'
+mode_str = 'uniform'
 print chromosome, n_samples, resolution, mode_str
 
 # Load data and split into training and validation sets
@@ -49,7 +49,8 @@ X1_length = X1_train.shape[1]
 X2_length = X2_train.shape[1]
 
 print 'Building model...'
-model = build_model.build_model_v1()
+# model = build_model.build_model_v1()
+model = build_model.build_model_v2()
 
 model.load_weights(sys.argv[1].strip())
 
@@ -66,6 +67,6 @@ print 'median of y_pred', np.median(y_pred.ravel())
 print 'r2 score', r2_score(y_val, y_pred)
 print 'mse     ', mean_squared_error(y_val, y_pred)
 
-np.save('chr{0}_5k_{1}y_pred'.format(chromosome, mode_str), y_pred)
-np.save('chr{0}_5k_{1}y_true'.format(chromosome, mode_str), y_val)
-np.save('chr{0}_5k_{1}dist'.format(chromosome, mode_str), dist_val)
+np.save('chr{0}_5k_{1}_pred'.format(chromosome, mode_str), y_pred)
+np.save('chr{0}_5k_{1}_true'.format(chromosome, mode_str), y_val)
+np.save('chr{0}_5k_{1}_dist'.format(chromosome, mode_str), dist_val)

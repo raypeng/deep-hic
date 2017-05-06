@@ -141,7 +141,7 @@ if __name__ == '__main__':
     b1, b2, dist, val, indices = generate_pairs(seq, interactions, length, start_pos, end_pos)
     print len(indices), 'pairs in total'
 
-    cache_file = 'chr{0}_{1}_kr_mat_{2}_{3}_{4}.h5'.format(chromosome, res_str, start_pos, end_pos, band)
+    cache_file = 'chr{0}_{1}_kr_mat_{2}_{3}.h5'.format(chromosome, res_str, start_pos, end_pos)
     with h5py.File(cache_file, 'w') as hf:
         hf.create_dataset('b1', data=b1.astype(np.uint8))
         hf.create_dataset('b2', data=b2.astype(np.uint8))

@@ -15,6 +15,9 @@ from keras.callbacks import ModelCheckpoint, EarlyStopping, Callback, ReduceLROn
 from keras.models import Sequential
 from seq2seq.layers.bidirectional import Bidirectional
 
+from sklearn.metrics import r2_score, mean_squared_error
+
+
 # training parameters
 num_epochs = 100
 batch_size = 50
@@ -46,7 +49,8 @@ X1_length = X1_train.shape[1]
 X2_length = X2_train.shape[1]
 
 print 'Building model...'
-model = build_model.build_model_v1()
+# model = build_model.build_model_v1()
+model = build_model.build_model_v2()
 
 print 'Compiling model...'
 model.compile(loss = 'mean_squared_error',
@@ -68,14 +72,16 @@ class ConfusionMatrix(Callback):
         self.epoch += 1
         print
         print 'epoch', self.epoch
-        print 'train'
-        train_pred = model.predict([X1_train, X2_train, dist_train], batch_size=batch_size)
-        for i in range(10):
-            print train_pred[i], y_train[i]
+        # print 'train'
+        # train_pred = model.predict([X1_train, X2_train, dist_train], batch_size=batch_size)
+        # for i in range(10):
+        #     print train_pred[i], y_train[i]
         print 'val'
         val_pred = model.predict([X1_val, X2_val, dist_val], batch_size=batch_size)
         for i in range(10):
             print val_pred[i], y_val[i]
+        print 'r2 score', r2_score(y_val, val_pred)
+        print 'mse     ', mean_squared_error(y_val, val_pred)
 
 
 print 'Data sizes: '
