@@ -1,7 +1,0 @@
-# symlink to actual directories
-data/
-weights/
-
-# tmp files
-*~
-*pyc
